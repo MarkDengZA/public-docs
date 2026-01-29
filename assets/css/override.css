@@ -1,0 +1,4 @@
+/* 默认搜索模块不支持中文搜索，将结果隐藏 */
+#mdbook-searchresults-header, .mdbook-searchresults-header {
+  display: none;
+}
