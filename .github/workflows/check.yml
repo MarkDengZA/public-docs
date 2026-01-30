@@ -6,6 +6,11 @@ concurrency:
   group: "check"
   cancel-in-progress: false
 
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
 jobs:
   fomat-check:
     runs-on: ubuntu-latest
@@ -29,8 +34,6 @@ jobs:
 
   book-run-test:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
     name: "框架静态测试"
     steps:
       - name: 检出仓库
@@ -42,14 +45,32 @@ jobs:
           mdbook-version: "0.5.2"
           # mdbook-version: 'latest'
 
+      - name: 初始化 Pages
+        id: pages
+        if: github.repository != 'haytham-ai/public-docs'
+        continue-on-error: true # 避免用户仓库未开启 GitHub Pages 时报错
+        uses: actions/configure-pages@v5
+
       - name: 构建测试
         run: mdbook -V && mdbook build && mdbook test
 
-      - name: 部署到 GitHub Pages (仅非原仓库)
+      - name: 上传待部署文件
         if: github.repository != 'haytham-ai/public-docs'
         continue-on-error: true # 避免用户仓库未开启 GitHub Pages 时报错
-        uses: peaceiris/actions-gh-pages@v4
+        uses: actions/upload-pages-artifact@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./book
-          publish_branch: gh-pages
+          path: ./book
+
+  test-deploy:
+    name: "部署测试"
+    environment:
+      name: "GitHub Pages"
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: book-run-test
+    steps:
+      - name: 部署至 GitHub Pages
+        id: deployment
+        if: github.repository != 'haytham-ai/public-docs'
+        continue-on-error: true # 避免用户仓库未开启 GitHub Pages 时报错
+        uses: actions/deploy-pages@v4
