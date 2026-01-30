@@ -16,15 +16,7 @@
 地址似 `https://github.com/your-user-name/public-docs`。
 下文称做“您的仓库”。
 
-**启用持续集成自动测试工作流**：
-在您的仓库的主页面（`Code` 页面）中，点击 `Settings`，然后点击 `Actions`，选择 `General`，
-确保 `Actions permissions` 设置为 `Allow all actions and reusable workflows`；
-确保 `Workflow permissions` 设置为 `Read and write permissions`。
-
-### 启动在线编辑器
-
-在您的仓库的主页面（`Code` 页面）中，按下键盘上的句号键 <kbd>.</kbd>，
-或访问 `https://github.dev/your-user-name/public-docs` 启动网页编辑器进行编辑。
+接下来请配置[自动测试工作流](actions_init.md)。
 
 ## 本地维护
 
@@ -56,19 +48,4 @@
 地址似 `https://github.com/your-user-name/public-docs`。
 下文称做“您的仓库”。
 
-**启用持续集成自动测试工作流**：
-在您的仓库的主页面（`Code` 页面）中，点击 `Settings`，然后点击 `Actions`，选择 `General`，
-确保 `Actions permissions` 设置为 `Allow all actions and reusable workflows`；
-确保 `Workflow permissions` 设置为 `Read and write permissions`。
-
-### 拉取至本地
-
-在终端模拟器或命令行执行：
-
-```bash
-git clone https://github.com/your-user-name/public-docs.git
-```
-
-即可拉取仓库到本地目录 `public-docs`。
-
-在该目录下启动您喜好的编辑器，就可开始编写文档了。
+接下来请配置[自动测试工作流](actions_init.md)。
